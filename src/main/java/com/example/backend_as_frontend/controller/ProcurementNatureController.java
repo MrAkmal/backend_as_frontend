@@ -41,7 +41,7 @@ public class ProcurementNatureController {
     @GetMapping("/update/{id}")
     public String getUpdatePage(Model model, @PathVariable Integer id) {
         ProcurementNature procurementNature = service.get(id);
-        model.addAttribute("financialYear", procurementNature);
+        model.addAttribute("procurementNature", procurementNature);
         return "procurement-nature-form";
     }
 

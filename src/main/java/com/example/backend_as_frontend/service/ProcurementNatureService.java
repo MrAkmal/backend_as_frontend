@@ -30,7 +30,9 @@ public class ProcurementNatureService {
                 .retrieve()
                 .bodyToMono(ProcurementNature.class);
 
-        return entity.block();
+        ProcurementNature block = entity.block();
+        System.out.println("block = " + block);
+        return block;
 
     }
 
