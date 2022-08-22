@@ -55,7 +55,7 @@ public class ProcurementNatureController {
         return "redirect:/procurement-nature";
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/delete/{id}")
     public String delete(@PathVariable Integer id) {
         service.delete(id);
         return "redirect:/procurement-nature";

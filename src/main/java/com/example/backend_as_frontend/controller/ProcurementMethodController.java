@@ -56,7 +56,7 @@ public class ProcurementMethodController {
         return "redirect:/procurement-method";
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/delete/{id}")
     public String delete(@PathVariable Integer id) {
         service.delete(id);
         return "redirect:/procurement-method";
