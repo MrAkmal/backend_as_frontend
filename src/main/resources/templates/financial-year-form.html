@@ -5,7 +5,7 @@
 <nav th:replace="layouts/menu :: user-navbar"></nav>
 <div class="container" style="padding-top: 2rem">
     <div class="row">
-        <div class="col-md-6 offse-3">
+        <div class="col-md-6 offset-3">
             <form th:method="POST" th:action="@{/financial-year}" th:object="${financialYear}">
                 <input type="hidden" th:field="*{id}">
                 <div class="form-group">
