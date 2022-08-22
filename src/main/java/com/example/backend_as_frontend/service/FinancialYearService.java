@@ -1,7 +1,14 @@
 package com.example.backend_as_frontend.service;
 
+import com.example.backend_as_frontend.entity.FinancialYear;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+
+import java.util.List;
 
 
 @Service
@@ -16,32 +23,67 @@ public class FinancialYearService {
         this.webClient = webClient;
     }
 
-    public void  get(){
+    public FinancialYear get(Integer id) {
 
-        webClient.get()
-                .uri(baseURI);
+        Mono<FinancialYear> financialYearFlux = webClient.get().uri(baseURI + "/" + id)
+                .retrieve().bodyToMono(FinancialYear.class);
+
+        return financialYearFlux.block();
     }
 
 
-    public void  getAll(){
+    public List<FinancialYear> getAll() {
+
+        Flux<FinancialYear> financialYearFlux = webClient.get().uri(baseURI).retrieve().bodyToFlux(FinancialYear.class);
+
+        List<FinancialYear> financialYears = financialYearFlux.collectList().block();
+
+
+        return null;
+    }
+
+
+    public void save(FinancialYear financialYear) {
+
+        System.out.println("financialYear = " + financialYear);
+
+        Mono<FinancialYear> mono = webClient.post()
+                .uri(baseURI)
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .body(Mono.just(financialYear), FinancialYear.class)
+                .retrieve()
+                .bodyToMono(FinancialYear.class);
+
+        System.out.println("mono = " + mono.block());
+    }
+
+
+    public void update(FinancialYear financialYear) {
+        Mono<FinancialYear> mono = webClient.put()
+                .uri(baseURI)
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .body(Mono.just(financialYear), FinancialYear.class)
+                .retrieve()
+                .bodyToMono(FinancialYear.class);
+
+        System.out.println("mono.block() = " + mono.block());
 
     }
 
 
-    public void  save(){
+    public void delete(Integer id) {
+        FinancialYear financialYear = get(id);
 
+        if (financialYear != null) {
+
+            Mono<Void> mono = webClient.delete()
+                    .uri(baseURI + "/" + id)
+                    .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                    .retrieve()
+                    .bodyToMono(Void.class);
+            System.out.println("mono = " + mono.block());
+        }
     }
-
-
-    public void  update(){
-
-    }
-
-
-    public void  delete(){
-
-    }
-
 
 
 }
