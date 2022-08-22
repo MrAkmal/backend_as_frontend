@@ -24,12 +24,16 @@ public class FinancialYearService {
         this.webClient = webClient;
     }
 
-    public void get() {
+    public FinancialYear get(Integer id) {
 
+        Mono<FinancialYear> financialYearFlux = webClient.get().uri(baseURI + "/" + id)
+                .retrieve().bodyToMono(FinancialYear.class);
+
+        return financialYearFlux.block();
     }
 
 
-    public void getAll() {
+    public List<FinancialYear> getAll() {
 
         Mono<List<FinancialYear>> entity = webClient.get()
                 .uri(baseURI)
@@ -39,23 +43,51 @@ public class FinancialYearService {
                 .collectList();
 
         List<FinancialYear> block = entity.block();
+        return block;
 
     }
 
 
+    public void save(FinancialYear financialYear) {
 
-    public void save() {
+        System.out.println("financialYear = " + financialYear);
+
+        Mono<FinancialYear> mono = webClient.post()
+                .uri(baseURI)
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .body(Mono.just(financialYear), FinancialYear.class)
+                .retrieve()
+                .bodyToMono(FinancialYear.class);
+
+        System.out.println("mono = " + mono.block());
+    }
+
+
+    public void update(FinancialYear financialYear) {
+        Mono<FinancialYear> mono = webClient.put()
+                .uri(baseURI)
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .body(Mono.just(financialYear), FinancialYear.class)
+                .retrieve()
+                .bodyToMono(FinancialYear.class);
+
+        System.out.println("mono.block() = " + mono.block());
 
     }
 
 
-    public void update() {
+    public void delete(Integer id) {
+        FinancialYear financialYear = get(id);
 
-    }
+        if (financialYear != null) {
 
-
-    public void delete() {
-
+            Mono<Void> mono = webClient.delete()
+                    .uri(baseURI + "/" + id)
+                    .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                    .retrieve()
+                    .bodyToMono(Void.class);
+            System.out.println("mono = " + mono.block());
+        }
     }
 
 
