@@ -1,11 +1,11 @@
 package com.example.backend_as_frontend.service;
 
+import com.example.backend_as_frontend.entity.ProcurementNature;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 @Service
 public class ProcurementNatureService {
-
 
 
     private final WebClient webClient;
@@ -20,7 +20,10 @@ public class ProcurementNatureService {
     public void  get(){
 
         webClient.get()
-                .uri(baseURI);
+                .uri(baseURI)
+
+                .retrieve()
+                .bodyToMono(ProcurementNature.class);
     }
 
 
