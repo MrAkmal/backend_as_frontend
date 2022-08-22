@@ -5,7 +5,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
@@ -38,13 +37,14 @@ public class ProcurementNatureService {
 
     public List<ProcurementNature> getAll() {
 
-        Flux<ProcurementNature> entity = webClient.get()
+        Mono<List<ProcurementNature>> entity = webClient.get()
                 .uri(baseURI)
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .retrieve()
-                .bodyToFlux(ProcurementNature.class);
+                .bodyToFlux(ProcurementNature.class)
+                .collectList();
 
-        return entity.collectList().block();
+        return entity.block();
     }
 
 

@@ -1,5 +1,6 @@
 package com.example.backend_as_frontend.service;
 
+import com.example.backend_as_frontend.entity.FinancialYear;
 import com.example.backend_as_frontend.entity.ProcurementMethod;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -39,13 +40,14 @@ public class ProcurementMethodService {
 
     public List<ProcurementMethod> getAll() {
 
-        Flux<ProcurementMethod> entity = webClient.get()
+        Mono<List<ProcurementMethod>> entity = webClient.get()
                 .uri(baseURI)
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .retrieve()
-                .bodyToFlux(ProcurementMethod.class);
+                .bodyToFlux(ProcurementMethod.class)
+                .collectList();
 
-        return entity.collectList().block();
+        return entity.block();
     }
 
 
