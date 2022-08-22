@@ -21,13 +21,13 @@
                 <tbody>
                 <tr th:each="financialYear,loop : ${financialYears}">
                     <th scope="row" th:text="${loop.count}"></th>
-                    <td th:text="${financialYear.getFinancialYear()}"></td>
-                    <td th:text="${financialYear.isDefault()}"></td>
-                    <td><a class="btn btn-info btn-sm" th:href="@{'/financial-year/update/'+${financialYear.getId()}}"><i
+                    <td th:text="${financialYear.financialYear}"></td>
+                    <td th:text="${financialYear.default}"></td>
+                    <td><a class="btn btn-info btn-sm" th:href="@{'/financial-year/update/'+${financialYear.id}}"><i
                             class="fa fa-edit"></i></a>
                     </td>
                     <td><a class="btn btn-danger btn-sm"
-                           th:href="@{'/financial-year/delete/'+${financialYear.getId()}}"
+                           th:href="@{'/financial-year/delete/'+${financialYear.id}}"
                            onclick="return confirm('Are you sure you want to delete this item')"><i
                             class="fa fa-trash"></i></a>
                     </td>
