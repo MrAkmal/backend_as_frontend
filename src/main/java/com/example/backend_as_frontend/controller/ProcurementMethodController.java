@@ -24,7 +24,7 @@ public class ProcurementMethodController {
 
     @GetMapping
     public String getListPage(Model model) {
-        model.addAttribute("procurementMethod", service.getAll());
+        model.addAttribute("procurementMethods", service.getAll());
         return "procurement-method";
     }
 
@@ -35,14 +35,14 @@ public class ProcurementMethodController {
 
     @GetMapping("/create")
     public String getCreatePage(Model model) {
-        model.addAttribute("financialYear", new ProcurementMethod());
+        model.addAttribute("procurementMethod", new ProcurementMethod());
         return "procurement-method-form";
     }
 
     @GetMapping("/update/{id}")
     public String getUpdatePage(Model model, @PathVariable Integer id) {
         ProcurementMethod procurementMethod = service.get(id);
-        model.addAttribute("prcurementMethod", procurementMethod);
+        model.addAttribute("procurementMethod", procurementMethod);
         return "procurement-method-form";
     }
 
@@ -56,7 +56,7 @@ public class ProcurementMethodController {
         return "redirect:/procurement-method";
     }
 
-    @DeleteMapping("/{id}")
+    @GetMapping("/delete/{id}")
     public String delete(@PathVariable Integer id) {
         service.delete(id);
         return "redirect:/procurement-method";

@@ -54,7 +54,7 @@ public class FinancialYearController {
         return "redirect:/financial-year";
     }
 
-    @DeleteMapping("/{id}")
+    @GetMapping("/delete/{id}")
     public String delete(@PathVariable Integer id) {
         service.delete(id);
         return "redirect:/financial-year";

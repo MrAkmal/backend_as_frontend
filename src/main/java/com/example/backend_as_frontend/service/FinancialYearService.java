@@ -1,10 +1,12 @@
 package com.example.backend_as_frontend.service;
 
 import com.example.backend_as_frontend.entity.FinancialYear;
+import com.example.backend_as_frontend.entity.ProcurementNature;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
@@ -41,7 +43,6 @@ public class FinancialYearService {
                 .collectList();
 
         List<FinancialYear> block = entity.block();
-        block.stream().forEach(System.out::println);
         return block;
 
     }
