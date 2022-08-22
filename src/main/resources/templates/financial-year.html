@@ -1,0 +1,57 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layouts/head :: user-head">
+    <style>
+        .bottom-table {
+            border-top: 2px solid #f00;
+            padding: 1.5rem
+        }
+
+        .top-table {
+            border-bottom: 2px solid #f00;
+        }
+    </style>
+</head>
+<body>
+<nav th:replace="layouts/menu :: user-navbar"></nav>
+<div class="container" style="padding-top: 2rem">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered table-striped" style="text-align: center">
+                <thead style="background-color: #04C3FC;">
+                <tr>
+                    <th scope="col" class="top-table">#</th>
+                    <th scope="col" class="top-table">Year</th>
+                    <th scope="col" class="top-table">isDefault</th>
+                    <th scope="col" class="top-table" colspan="2">Settings</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>2012-2013</td>
+                    <td>No</td>
+                    <td>Edit</td>
+                    <td>Delete</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>2011-2012</td>
+                    <td>Yes</td>
+                    <td>Edit</td>
+                    <td>Delete</td>
+                </tr>
+                </tbody>
+                <thead style="background-color: #08A51F;border-top-color: red;">
+                <tr style="padding: 2rem">
+                    <th scope="col" class="bottom-table"></th>
+                    <th scope="col" class="bottom-table"></th>
+                    <th scope="col" class="bottom-table"></th>
+                    <th scope="col" class="bottom-table" colspan="2"></th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
