@@ -46,6 +46,7 @@ public class FinancialYearController {
 
     @PostMapping
     public String save(FinancialYear financialYear) {
+        System.out.println("financialYear.getId() = " + financialYear.getId());
         if (financialYear.getId() != 0) {
             service.update(financialYear);
         } else {
