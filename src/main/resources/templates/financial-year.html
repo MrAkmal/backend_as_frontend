@@ -21,9 +21,9 @@
                 <tbody>
                 <tr th:each="financialYear,loop : ${financialYears}">
                     <th scope="row" th:text="${loop.count}"></th>
-                    <td th:text="${financialYear.getFinancialYear()()}"></td>
+                    <td th:text="${financialYear.getFinancialYear()}"></td>
                     <td th:text="${financialYear.isDefault()}"></td>
-                    <td><a class="btn btn-info btn-sm" th:href="@{'/financial-year/edit/'+${financialYear.getId()}}"><i
+                    <td><a class="btn btn-info btn-sm" th:href="@{'/financial-year/update/'+${financialYear.getId()}}"><i
                             class="fa fa-edit"></i></a>
                     </td>
                     <td><a class="btn btn-danger btn-sm"

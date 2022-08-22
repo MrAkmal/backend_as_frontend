@@ -29,7 +29,9 @@ public class FinancialYearService {
         Mono<FinancialYear> financialYearFlux = webClient.get().uri(baseURI + "/" + id)
                 .retrieve().bodyToMono(FinancialYear.class);
 
-        return financialYearFlux.block();
+        FinancialYear block = financialYearFlux.block();
+
+        return block;
     }
 
 
@@ -43,6 +45,7 @@ public class FinancialYearService {
                 .collectList();
 
         List<FinancialYear> block = entity.block();
+        System.out.println("block = " + block);
         return block;
 
     }
