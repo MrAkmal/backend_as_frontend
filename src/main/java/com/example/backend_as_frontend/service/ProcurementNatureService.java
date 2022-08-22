@@ -1,8 +1,13 @@
 package com.example.backend_as_frontend.service;
 
 import com.example.backend_as_frontend.entity.ProcurementNature;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
+
+import java.util.List;
 
 @Service
 public class ProcurementNatureService {
@@ -17,32 +22,74 @@ public class ProcurementNatureService {
         this.webClient = webClient;
     }
 
-    public void  get(){
+    public ProcurementNature get(Integer id) {
 
-        webClient.get()
-                .uri(baseURI)
-
+        Mono<ProcurementNature> entity = webClient.get()
+                .uri(baseURI + "/" + id)
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .retrieve()
                 .bodyToMono(ProcurementNature.class);
-    }
 
-
-    public void  getAll(){
+        return entity.block();
 
     }
 
 
-    public void  save(){
+    public List<ProcurementNature> getAll() {
+
+        Mono<List<ProcurementNature>> entity = webClient.get()
+                .uri(baseURI)
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .retrieve()
+                .bodyToFlux(ProcurementNature.class)
+                .collectList();
+
+        return entity.block();
+    }
+
+
+    public void save(ProcurementNature nature) {
+
+
+        Mono<ProcurementNature> entity = webClient.post()
+                .uri(baseURI)
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .body(Mono.just(nature), ProcurementNature.class)
+                .retrieve()
+                .bodyToMono(ProcurementNature.class);
+
+        System.out.println("entity.block() = " + entity.block());
+
 
     }
 
 
-    public void  update(){
+    public void update(ProcurementNature nature) {
+
+
+        Mono<ProcurementNature> entity = webClient.put()
+                .uri(baseURI)
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .body(Mono.just(nature), ProcurementNature.class)
+                .retrieve()
+                .bodyToMono(ProcurementNature.class);
+
+        System.out.println("entity.block() = " + entity.block());
+
 
     }
 
 
-    public void  delete(){
+    public void delete(Integer id) {
+
+        Mono<ProcurementNature> entity = webClient.delete()
+                .uri(baseURI + "/" + id)
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .retrieve()
+                .bodyToMono(ProcurementNature.class);
+
+
+        System.out.println("entity.block() = " + entity.block());
 
     }
 

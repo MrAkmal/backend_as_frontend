@@ -61,4 +61,5 @@ public class ProcurementNatureController {
         return "redirect:/procurement-nature";
     }
 
+
 }

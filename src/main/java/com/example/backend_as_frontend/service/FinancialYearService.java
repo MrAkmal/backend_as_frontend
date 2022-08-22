@@ -1,6 +1,7 @@
 package com.example.backend_as_frontend.service;
 
 import com.example.backend_as_frontend.entity.FinancialYear;
+import com.example.backend_as_frontend.entity.ProcurementNature;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -32,14 +33,23 @@ public class FinancialYearService {
     }
 
 
-    public List<FinancialYear> getAll() {
+    public void getAll() {
 
-        Flux<FinancialYear> financialYearFlux = webClient.get().uri(baseURI).retrieve().bodyToFlux(FinancialYear.class);
+        Mono<List<FinancialYear>> entity = webClient.get()
+                .uri(baseURI)
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .retrieve()
+                .bodyToFlux(FinancialYear.class)
+                .collectList();
 
-        List<FinancialYear> financialYears = financialYearFlux.collectList().block();
+        List<FinancialYear> block = entity.block();
+
+    }
 
 
-        return null;
+
+    public void  save(){
+
     }
 
 
