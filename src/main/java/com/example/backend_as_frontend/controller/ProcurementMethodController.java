@@ -53,7 +53,7 @@ public class ProcurementMethodController {
         } else {
             service.save(procurementMethod);
         }
-        return "redirect:/procurement-method;
+        return "redirect:/procurement-method";
     }
 
     @DeleteMapping("/{id}")

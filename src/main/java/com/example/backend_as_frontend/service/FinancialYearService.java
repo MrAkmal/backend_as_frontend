@@ -33,7 +33,7 @@ public class FinancialYearService {
     }
 
 
-    public void getAll() {
+    public List<FinancialYear> getAll() {
 
         Mono<List<FinancialYear>> entity = webClient.get()
                 .uri(baseURI)
@@ -43,12 +43,7 @@ public class FinancialYearService {
                 .collectList();
 
         List<FinancialYear> block = entity.block();
-
-    }
-
-
-
-    public void  save(){
+        return block;
 
     }
 
