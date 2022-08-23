@@ -1,6 +1,7 @@
 package com.example.backend_as_frontend.controller;
 
 import com.example.backend_as_frontend.entity.FinancialYear;
+import com.example.backend_as_frontend.entity.FinancialYearCreateDTO;
 import com.example.backend_as_frontend.service.FinancialYearService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -45,12 +46,12 @@ public class FinancialYearController {
     }
 
     @PostMapping
-    public String save(FinancialYear financialYear) {
-        System.out.println("financialYear.getId() = " + financialYear.getId());
-        if (financialYear.getId() != 0) {
-            service.update(financialYear);
+    public String save(FinancialYearCreateDTO dto) {
+        System.out.println("financialYear.getId() = " + dto.getId());
+        if (dto.getId() != 0) {
+            service.update(dto);
         } else {
-            service.save(financialYear);
+            service.save(dto);
         }
         return "redirect:/financial-year";
     }
