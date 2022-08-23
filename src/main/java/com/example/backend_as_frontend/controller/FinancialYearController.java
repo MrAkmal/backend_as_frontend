@@ -28,19 +28,19 @@ public class FinancialYearController {
     }
 
     @GetMapping("/{id}")
-    public FinancialYear get(@PathVariable Integer id) {
+    public FinancialYearCreateDTO get(@PathVariable Integer id) {
         return service.get(id);
     }
 
     @GetMapping("/create")
     public String getCreatePage(Model model) {
-        model.addAttribute("financialYear", new FinancialYear());
+        model.addAttribute("financialYear", new FinancialYearCreateDTO());
         return "financial-year-form";
     }
 
     @GetMapping("/update/{id}")
     public String getUpdatePage(Model model, @PathVariable Integer id) {
-        FinancialYear financialYear = service.get(id);
+        FinancialYearCreateDTO financialYear = service.get(id);
         model.addAttribute("financialYear", financialYear);
         return "financial-year-form";
     }

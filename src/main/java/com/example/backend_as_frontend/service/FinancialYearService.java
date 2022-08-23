@@ -23,12 +23,23 @@ public class FinancialYearService {
         this.webClient = webClient;
     }
 
-    public FinancialYear get(Integer id) {
+    public FinancialYearCreateDTO get(Integer id) {
 
         Mono<FinancialYear> financialYearFlux = webClient.get().uri(baseURI + "/" + id)
                 .retrieve().bodyToMono(FinancialYear.class);
 
-        return financialYearFlux.block();
+        FinancialYear block = financialYearFlux.block();
+
+        String year = block.getYear();
+
+        String fromYear = year.substring(0, year.indexOf('-'));
+        String yearTo = year.substring(year.indexOf('-')+1);
+
+        System.out.println("fromYear = " + fromYear);
+        System.out.println("yearTo = " + yearTo);
+
+
+        return new FinancialYearCreateDTO(block.getId(),Integer.valueOf(fromYear),Integer.valueOf(yearTo), block.isDefault());
     }
 
 
@@ -74,7 +85,7 @@ public class FinancialYearService {
 //
 //        FinancialYear financialYear = new FinancialYear(8, "6060-6061",true);
 //
-//        System.out.println("financialYear = " + financialYear);
+//        System.out.println("financi   alYear = " + financialYear);
 //
 //        Mono<FinancialYear> mono = WebClient.builder().build().put()
 //                .uri("http://localhost:3030/v1/financial_year")
@@ -109,7 +120,7 @@ public class FinancialYearService {
 
 
     public void delete(Integer id) {
-        FinancialYear financialYear = get(id);
+        FinancialYearCreateDTO financialYear = get(id);
 
         if (financialYear != null) {
 
