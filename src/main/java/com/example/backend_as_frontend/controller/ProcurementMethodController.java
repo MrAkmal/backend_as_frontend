@@ -3,6 +3,7 @@ package com.example.backend_as_frontend.controller;
 import com.example.backend_as_frontend.entity.ProcurementMethod;
 import com.example.backend_as_frontend.entity.ProcurementNature;
 import com.example.backend_as_frontend.service.ProcurementMethodService;
+import com.example.backend_as_frontend.service.ProcurementNatureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,11 +15,13 @@ public class ProcurementMethodController {
 
 
     private final ProcurementMethodService service;
+    private final ProcurementNatureService procurementNatureService;
 
 
     @Autowired
-    public ProcurementMethodController(ProcurementMethodService service) {
+    public ProcurementMethodController(ProcurementMethodService service, ProcurementNatureService procurementNatureService) {
         this.service = service;
+        this.procurementNatureService = procurementNatureService;
     }
 
 
@@ -35,6 +38,7 @@ public class ProcurementMethodController {
 
     @GetMapping("/create")
     public String getCreatePage(Model model) {
+        model.addAttribute("procurementNatures", procurementNatureService.getAll());
         model.addAttribute("procurementMethod", new ProcurementMethod());
         return "procurement-method-form";
     }
@@ -42,6 +46,7 @@ public class ProcurementMethodController {
     @GetMapping("/update/{id}")
     public String getUpdatePage(Model model, @PathVariable Integer id) {
         ProcurementMethod procurementMethod = service.get(id);
+        model.addAttribute("procurementNatures", procurementNatureService.getAll());
         model.addAttribute("procurementMethod", procurementMethod);
         return "procurement-method-form";
     }

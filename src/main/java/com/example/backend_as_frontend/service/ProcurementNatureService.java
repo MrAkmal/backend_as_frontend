@@ -36,6 +36,13 @@ public class ProcurementNatureService {
 
     }
 
+    public String getProcurementNatureName(Integer id){
+        ProcurementNature procurementNature = get(id);
+        if (procurementNature!=null) {
+            return procurementNature.getName();
+        }
+        return "null";
+    }
 
     public List<ProcurementNature> getAll() {
 
