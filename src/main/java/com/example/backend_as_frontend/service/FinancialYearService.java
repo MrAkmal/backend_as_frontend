@@ -16,7 +16,7 @@ public class FinancialYearService {
 
     private final WebClient webClient;
 
-    private final String baseURI = "http://localhost:3030/v1/financial_year";
+    private final String baseURI = "http://localhost:9595/v1/financial_year";
 
 
     public FinancialYearService(WebClient webClient) {
@@ -56,6 +56,20 @@ public class FinancialYearService {
         return block;
 
     }
+
+//    public static void main(String[] args) {
+//
+//        Mono<List<FinancialYear>> entity = WebClient.builder().build().get()
+//                .uri("http://localhost:9595/v1/financial_year")
+//                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+//                .retrieve()
+//                .bodyToFlux(FinancialYear.class)
+//                .collectList();
+//
+//        List<FinancialYear> block = entity.block();
+//        block.forEach(System.out::println);
+//
+//    }
 
 
     public List<FinancialYear> getAllBySort(String fieldName, boolean type) {

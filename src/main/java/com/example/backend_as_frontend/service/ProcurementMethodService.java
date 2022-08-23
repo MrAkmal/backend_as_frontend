@@ -2,14 +2,12 @@ package com.example.backend_as_frontend.service;
 
 import com.example.backend_as_frontend.entity.ProcurementMethod;
 import com.example.backend_as_frontend.entity.ProcurementMethodDTO;
-import com.example.backend_as_frontend.entity.ProcurementNature;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,7 +19,7 @@ public class ProcurementMethodService {
 
     private final ProcurementNatureService procurementNatureService;
 
-    private final String baseURI = "http://localhost:2020/v1/procurement_method";
+    private final String baseURI = "http://localhost:9595/v1/procurement_method";
 
 
     public ProcurementMethodService(WebClient webClient, ProcurementNatureService procurementNatureService) {
@@ -57,7 +55,8 @@ public class ProcurementMethodService {
         assert block != null;
 
         return block.stream().map(
-                s -> new ProcurementMethodDTO(s.getId(),
+                s -> new ProcurementMethodDTO(
+                        s.getId(),
                         s.getName(),
                         procurementNatureService.getProcurementNatureName(s.getProcurementNatureId()))
         ).collect(Collectors.toList());

@@ -15,7 +15,7 @@ public class ProcurementNatureService {
 
     private final WebClient webClient;
 
-    private final String baseURI = "http://localhost:1010/v1/procurement_nature";
+    private final String baseURI = "http://localhost:9595/v1/procurement_nature";
 
 
     public ProcurementNatureService(WebClient webClient) {
