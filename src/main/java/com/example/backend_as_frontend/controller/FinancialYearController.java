@@ -22,8 +22,9 @@ public class FinancialYearController {
 
 
     @GetMapping
-    public String getListPage(Model model) {
-        model.addAttribute("financialYears", service.getAll());
+    public String getListPage(Model model, @RequestParam(required = false, defaultValue = "year") String fieldName,
+                              @RequestParam(required = false, defaultValue = "true") Boolean type) {
+        model.addAttribute("financialYears", service.getAllBySort(fieldName, type));
         return "financial-year";
     }
 

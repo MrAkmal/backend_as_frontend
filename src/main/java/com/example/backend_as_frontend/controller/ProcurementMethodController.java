@@ -26,8 +26,8 @@ public class ProcurementMethodController {
 
 
     @GetMapping
-    public String getListPage(Model model) {
-        model.addAttribute("procurementMethods", service.getAll());
+    public String getListPage(Model model, @RequestParam(required = false, defaultValue = "id") String fieldName) {
+        model.addAttribute("procurementMethods", service.getAll(fieldName));
         return "procurement-method";
     }
 

@@ -21,7 +21,7 @@ public class ProcurementNatureController {
 
 
     @GetMapping
-    public String getListPage(Model model, @RequestParam(required = false, defaultValue = "name") String fieldName) {
+    public String getListPage(Model model, @RequestParam(required = false, defaultValue = "id") String fieldName) {
         model.addAttribute("procurementNatures", service.getAll(fieldName));
         return "procurement-nature";
     }

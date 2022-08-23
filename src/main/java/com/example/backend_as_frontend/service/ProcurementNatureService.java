@@ -47,7 +47,7 @@ public class ProcurementNatureService {
     public List<ProcurementNature> getAll() {
 
         Mono<List<ProcurementNature>> entity = webClient.get()
-                .uri(baseURI)
+                .uri(baseURI+"/list")
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .retrieve()
                 .bodyToFlux(ProcurementNature.class)
