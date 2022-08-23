@@ -56,6 +56,19 @@ public class ProcurementNatureService {
         return entity.block();
     }
 
+    public List<ProcurementNature> getAll(String fieldName) {
+
+        Mono<List<ProcurementNature>> entity = webClient.get()
+                .uri(baseURI+"?fieldName="+fieldName)
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .retrieve()
+                .bodyToFlux(ProcurementNature.class)
+                .collectList();
+
+        return entity.block();
+    }
+
+
 
     public void save(ProcurementNature nature) {
 

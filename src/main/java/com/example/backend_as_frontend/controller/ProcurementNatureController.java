@@ -2,7 +2,6 @@ package com.example.backend_as_frontend.controller;
 
 import com.example.backend_as_frontend.entity.ProcurementNature;
 import com.example.backend_as_frontend.service.ProcurementNatureService;
-import com.example.backend_as_frontend.service.ProcurementNatureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,8 +21,8 @@ public class ProcurementNatureController {
 
 
     @GetMapping
-    public String getListPage(Model model) {
-        model.addAttribute("procurementNatures", service.getAll());
+    public String getListPage(Model model, @RequestParam(required = false, defaultValue = "name") String fieldName) {
+        model.addAttribute("procurementNatures", service.getAll(fieldName));
         return "procurement-nature";
     }
 
