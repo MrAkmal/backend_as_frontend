@@ -14,7 +14,7 @@
                 <tr>
                     <th scope="col" style="border-bottom: 2px solid #f00;">#</th>
                     <th scope="col" style="border-bottom: 2px solid #f00;">Name</th>
-                    <th scope="col" style="border-bottom: 2px solid #f00;">ProcurementNatureId</th>
+                    <th scope="col" style="border-bottom: 2px solid #f00;">ProcurementNature</th>
                     <th scope="col" style="border-bottom: 2px solid #f00;" colspan="2">Settings</th>
                 </tr>
                 </thead>
@@ -22,7 +22,7 @@
                 <tr th:each="procurementMethod,loop : ${procurementMethods}">
                     <th scope="row" th:text="${loop.count}"></th>
                     <td th:text="${procurementMethod.name}"></td>
-                    <td th:text="${procurementMethod.procurementNatureId}"></td>
+                    <td th:text="${procurementMethod.procurementNatureName}"></td>
                     <td><a class="btn btn-info btn-sm"
                            th:href="@{'/procurement-method/update/'+${procurementMethod.getId()}}"><i
                             class="fa fa-edit"></i></a>

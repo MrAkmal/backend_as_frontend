@@ -14,9 +14,12 @@
                            placeholder="Enter Procurement Method"/>
                 </div>
                 <div class="form-group">
-                    <label for="procurementNatureId">Procurement Nature Id</label>
-                    <input type="text" th:field="*{procurementNatureId}" class="form-control" id="procurementNatureId"
-                           placeholder="Enter Procurement Nature Id"/>
+                    <label for="procurementNatureId">Procurement Nature</label>
+                    <select class="form-control" id="procurementNatureId" th:field="*{procurementNatureId}">
+                        <option th:each="nature : ${procurementNatures}" th:value="${nature.id}"
+                                th:text="${nature.name}" th:selected="${nature.id==procurementMethod.procurementNatureId}">
+                        </option>
+                    </select>
                 </div>
                 <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-save"></i> Save</button>
                 <a th:href="@{/procurement-method}" class="btn btn-warning btn-sm"><i class="fa fa-arrow-left"></i> Back</a>
