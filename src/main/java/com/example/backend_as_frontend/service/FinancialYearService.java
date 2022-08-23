@@ -33,13 +33,13 @@ public class FinancialYearService {
         String year = block.getYear();
 
         String fromYear = year.substring(0, year.indexOf('-'));
-        String yearTo = year.substring(year.indexOf('-')+1);
+        String yearTo = year.substring(year.indexOf('-') + 1);
 
         System.out.println("fromYear = " + fromYear);
         System.out.println("yearTo = " + yearTo);
 
 
-        return new FinancialYearCreateDTO(block.getId(),Integer.valueOf(fromYear),Integer.valueOf(yearTo), block.isDefault());
+        return new FinancialYearCreateDTO(block.getId(), Integer.valueOf(fromYear), Integer.valueOf(yearTo), block.isDefault());
     }
 
 
@@ -56,6 +56,24 @@ public class FinancialYearService {
         return block;
 
     }
+
+
+    public List<FinancialYear> getAllBySort(String fieldName, boolean type) {
+
+        Mono<List<FinancialYear>> entity = WebClient.builder().build().get()
+                .uri("http://localhost:3030/v1/financial_year/sort?fieldName=" + fieldName + "&type=" + type)
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .retrieve()
+                .bodyToFlux(FinancialYear.class)
+                .collectList();
+
+
+        List<FinancialYear> block = entity.block();
+        return block;
+
+    }
+
+
 
 
     public void save(FinancialYearCreateDTO dto) {
