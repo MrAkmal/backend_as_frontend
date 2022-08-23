@@ -12,7 +12,7 @@ public class FinancialYear {
 
     private int id;
 
-    private String financialYear;
+    private String year;
 
     private boolean isDefault;
 
