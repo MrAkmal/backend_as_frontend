@@ -10,6 +10,8 @@ import reactor.core.publisher.Mono;
 
 import java.util.List;
 
+import static org.springframework.http.HttpHeaders.AUTHORIZATION;
+
 
 @Service
 public class FinancialYearService {
@@ -103,6 +105,7 @@ public class FinancialYearService {
 
         Mono<FinancialYear> mono = webClient.post()
                 .uri(baseURI)
+                .header(AUTHORIZATION,"")
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .body(Mono.just(financialYear), FinancialYear.class)
                 .retrieve()
