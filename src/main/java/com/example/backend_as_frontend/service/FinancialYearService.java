@@ -1,14 +1,22 @@
 package com.example.backend_as_frontend.service;
 
 import com.example.backend_as_frontend.entity.FinancialYear;
-import com.example.backend_as_frontend.entity.FinancialYearCreateDTO;
+import com.example.backend_as_frontend.dto.FinancialYearCreateDTO;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Objects;
+
+import static com.example.backend_as_frontend.utils.Utils.getToken;
+import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 
 @Service
@@ -74,9 +82,12 @@ public class FinancialYearService {
 
     public List<FinancialYear> getAllBySort(String fieldName, boolean type) {
 
+
+
         Mono<List<FinancialYear>> entity = WebClient.builder().build().get()
-                .uri("http://localhost:3030/v1/financial_year/sort?fieldName=" + fieldName + "&type=" + type)
+                .uri(baseURI + "/sort?fieldName=" + fieldName + "&type=" + type)
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .header(AUTHORIZATION, getToken())
                 .retrieve()
                 .bodyToFlux(FinancialYear.class)
                 .collectList();
@@ -86,8 +97,6 @@ public class FinancialYearService {
         return block;
 
     }
-
-
 
 
     public void save(FinancialYearCreateDTO dto) {

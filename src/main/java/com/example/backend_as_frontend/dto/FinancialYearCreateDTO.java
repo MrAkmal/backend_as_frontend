@@ -1,4 +1,4 @@
-package com.example.backend_as_frontend.entity;
+package com.example.backend_as_frontend.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
