@@ -1,19 +1,14 @@
 package com.example.backend_as_frontend.service;
 
-import com.example.backend_as_frontend.entity.FinancialYear;
 import com.example.backend_as_frontend.dto.FinancialYearCreateDTO;
+import com.example.backend_as_frontend.entity.FinancialYear;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.Objects;
 
 import static com.example.backend_as_frontend.utils.Utils.getToken;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
@@ -33,8 +28,11 @@ public class FinancialYearService {
 
     public FinancialYearCreateDTO get(Integer id) {
 
-        Mono<FinancialYear> financialYearFlux = webClient.get().uri(baseURI + "/" + id)
-                .retrieve().bodyToMono(FinancialYear.class);
+        Mono<FinancialYear> financialYearFlux = webClient.get()
+                .uri(baseURI + "/" + id)
+                .header(AUTHORIZATION, getToken())
+                .retrieve()
+                .bodyToMono(FinancialYear.class);
 
         FinancialYear block = financialYearFlux.block();
 
@@ -56,6 +54,7 @@ public class FinancialYearService {
         Mono<List<FinancialYear>> entity = webClient.get()
                 .uri(baseURI)
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .header(AUTHORIZATION, getToken())
                 .retrieve()
                 .bodyToFlux(FinancialYear.class)
                 .collectList();
@@ -113,6 +112,7 @@ public class FinancialYearService {
         Mono<FinancialYear> mono = webClient.post()
                 .uri(baseURI)
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .header(AUTHORIZATION, getToken())
                 .body(Mono.just(financialYear), FinancialYear.class)
                 .retrieve()
                 .bodyToMono(FinancialYear.class);
@@ -151,6 +151,7 @@ public class FinancialYearService {
         Mono<FinancialYear> mono = webClient.put()
                 .uri(baseURI)
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .header(AUTHORIZATION, getToken())
                 .body(Mono.just(financialYear), FinancialYear.class)
                 .retrieve()
                 .bodyToMono(FinancialYear.class);
@@ -168,6 +169,7 @@ public class FinancialYearService {
             Mono<Void> mono = webClient.delete()
                     .uri(baseURI + "/" + id)
                     .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                    .header(AUTHORIZATION, getToken())
                     .retrieve()
                     .bodyToMono(Void.class);
             System.out.println("mono = " + mono.block());

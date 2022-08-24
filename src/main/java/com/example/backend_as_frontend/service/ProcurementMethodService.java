@@ -11,6 +11,9 @@ import reactor.core.publisher.Mono;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.example.backend_as_frontend.utils.Utils.getToken;
+import static org.springframework.http.HttpHeaders.AUTHORIZATION;
+
 @Service
 public class ProcurementMethodService {
 
@@ -32,6 +35,7 @@ public class ProcurementMethodService {
         Mono<ProcurementMethod> entity = webClient.get()
                 .uri(baseURI + "/" + id)
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .header(AUTHORIZATION, getToken())
                 .retrieve()
                 .bodyToMono(ProcurementMethod.class);
 
@@ -45,6 +49,7 @@ public class ProcurementMethodService {
         Mono<List<ProcurementMethod>> entity = webClient.get()
                 .uri(baseURI + "/list")
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .header(AUTHORIZATION, getToken())
                 .retrieve()
                 .bodyToFlux(ProcurementMethod.class)
                 .collectList();
@@ -67,6 +72,7 @@ public class ProcurementMethodService {
         Mono<List<ProcurementMethod>> entity = webClient.get()
                 .uri(baseURI + "?fieldName=" + fieldName)
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .header(AUTHORIZATION, getToken())
                 .retrieve()
                 .bodyToFlux(ProcurementMethod.class)
                 .collectList();
@@ -90,6 +96,7 @@ public class ProcurementMethodService {
         Mono<ProcurementMethod> entity = webClient.post()
                 .uri(baseURI)
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .header(AUTHORIZATION, getToken())
                 .body(Mono.just(nature), ProcurementMethod.class)
                 .retrieve()
                 .bodyToMono(ProcurementMethod.class);
@@ -106,6 +113,7 @@ public class ProcurementMethodService {
         Mono<ProcurementMethod> entity = webClient.put()
                 .uri(baseURI)
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .header(AUTHORIZATION, getToken())
                 .body(Mono.just(nature), ProcurementMethod.class)
                 .retrieve()
                 .bodyToMono(ProcurementMethod.class);
@@ -121,6 +129,7 @@ public class ProcurementMethodService {
         Mono<ProcurementMethod> entity = webClient.delete()
                 .uri(baseURI + "/" + id)
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .header(AUTHORIZATION, getToken())
                 .retrieve()
                 .bodyToMono(ProcurementMethod.class);
 

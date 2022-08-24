@@ -9,6 +9,9 @@ import reactor.core.publisher.Mono;
 
 import java.util.List;
 
+import static com.example.backend_as_frontend.utils.Utils.getToken;
+import static org.springframework.http.HttpHeaders.AUTHORIZATION;
+
 @Service
 public class ProcurementNatureService {
 
@@ -27,6 +30,7 @@ public class ProcurementNatureService {
         Mono<ProcurementNature> entity = webClient.get()
                 .uri(baseURI + "/" + id)
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .header(AUTHORIZATION, getToken())
                 .retrieve()
                 .bodyToMono(ProcurementNature.class);
 
@@ -49,6 +53,7 @@ public class ProcurementNatureService {
         Mono<List<ProcurementNature>> entity = webClient.get()
                 .uri(baseURI+"/list")
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .header(AUTHORIZATION, getToken())
                 .retrieve()
                 .bodyToFlux(ProcurementNature.class)
                 .collectList();
@@ -61,6 +66,7 @@ public class ProcurementNatureService {
         Mono<List<ProcurementNature>> entity = webClient.get()
                 .uri(baseURI+"?fieldName="+fieldName)
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .header(AUTHORIZATION, getToken())
                 .retrieve()
                 .bodyToFlux(ProcurementNature.class)
                 .collectList();
@@ -76,6 +82,7 @@ public class ProcurementNatureService {
         Mono<ProcurementNature> entity = webClient.post()
                 .uri(baseURI)
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .header(AUTHORIZATION, getToken())
                 .body(Mono.just(nature), ProcurementNature.class)
                 .retrieve()
                 .bodyToMono(ProcurementNature.class);
@@ -92,6 +99,7 @@ public class ProcurementNatureService {
         Mono<ProcurementNature> entity = webClient.put()
                 .uri(baseURI)
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .header(AUTHORIZATION, getToken())
                 .body(Mono.just(nature), ProcurementNature.class)
                 .retrieve()
                 .bodyToMono(ProcurementNature.class);
@@ -107,6 +115,7 @@ public class ProcurementNatureService {
         Mono<ProcurementNature> entity = webClient.delete()
                 .uri(baseURI + "/" + id)
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .header(AUTHORIZATION, getToken())
                 .retrieve()
                 .bodyToMono(ProcurementNature.class);
 
