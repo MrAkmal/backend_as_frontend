@@ -13,6 +13,8 @@ import java.util.List;
 import static com.example.backend_as_frontend.utils.Utils.getToken;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
+import static org.springframework.http.HttpHeaders.AUTHORIZATION;
+
 
 @Service
 public class FinancialYearService {
@@ -111,6 +113,7 @@ public class FinancialYearService {
 
         Mono<FinancialYear> mono = webClient.post()
                 .uri(baseURI)
+                .header(AUTHORIZATION,"")
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .header(AUTHORIZATION, getToken())
                 .body(Mono.just(financialYear), FinancialYear.class)
