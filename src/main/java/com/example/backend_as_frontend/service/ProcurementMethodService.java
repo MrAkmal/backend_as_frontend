@@ -1,7 +1,7 @@
 package com.example.backend_as_frontend.service;
 
 import com.example.backend_as_frontend.entity.ProcurementMethod;
-import com.example.backend_as_frontend.entity.ProcurementMethodDTO;
+import com.example.backend_as_frontend.dto.ProcurementMethodDTO;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;

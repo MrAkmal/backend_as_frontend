@@ -1,7 +1,6 @@
 package com.example.backend_as_frontend.controller;
 
-import com.example.backend_as_frontend.entity.FinancialYear;
-import com.example.backend_as_frontend.entity.FinancialYearCreateDTO;
+import com.example.backend_as_frontend.dto.FinancialYearCreateDTO;
 import com.example.backend_as_frontend.service.FinancialYearService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
