@@ -113,7 +113,6 @@ public class FinancialYearService {
 
         Mono<FinancialYear> mono = webClient.post()
                 .uri(baseURI)
-                .header(AUTHORIZATION,"")
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .header(AUTHORIZATION, getToken())
                 .body(Mono.just(financialYear), FinancialYear.class)
