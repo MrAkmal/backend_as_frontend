@@ -1,0 +1,16 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layouts/head :: user-head">
+</head>
+<body>
+<nav th:replace="layouts/menu :: user-navbar"></nav>
+<div class="container" style="padding-top: 2rem">
+    <div class="row">
+        <div class="col-md-12">
+            <h4><a class="btn btn-primary btn-sm" th:href="@{/payment-config/create}"><i class="fa fa-plus"></i> Add</a>
+            </h4>
+            <br>
+        </div>
+    </div>
+</div>
+</body>
+</html>
