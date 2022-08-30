@@ -65,4 +65,18 @@ public class PaymentConfigurationService {
         List<PaymentConfigurationDTO> block = entity.block();
         return block;
     }
+
+    public void delete(Integer id) {
+
+        if (id != null) {
+
+            Mono<Void> mono = webClient.delete()
+                    .uri(baseURI + "/" + id)
+                    .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                    .header(AUTHORIZATION, getToken())
+                    .retrieve()
+                    .bodyToMono(Void.class);
+            System.out.println("mono = " + mono.block());
+        }
+    }
 }

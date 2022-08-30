@@ -2,6 +2,7 @@ package com.example.backend_as_frontend.controller;
 
 
 import com.example.backend_as_frontend.dto.PaymentConfigCreateDTO;
+import com.example.backend_as_frontend.dto.PaymentConfigurationDTO;
 import com.example.backend_as_frontend.entity.PaymentType;
 import com.example.backend_as_frontend.service.PaymentConfigurationService;
 import com.example.backend_as_frontend.service.PaymentTypeService;
@@ -38,6 +39,11 @@ public class PaymentConfigurationRestController {
         System.out.println("dto = " + paymentConfig);
         paymentConfigurationService.save(paymentConfig);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/list")
+    public List<PaymentConfigurationDTO> getAllPaymentConfig() {
+        return paymentConfigurationService.getAll();
     }
 }
 
