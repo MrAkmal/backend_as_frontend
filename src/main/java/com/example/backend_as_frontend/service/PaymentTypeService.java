@@ -1,5 +1,7 @@
 package com.example.backend_as_frontend.service;
 
+import com.example.backend_as_frontend.dto.FinancialYearCreateDTO;
+import com.example.backend_as_frontend.dto.PaymentTypeCreateDTO;
 import com.example.backend_as_frontend.entity.FinancialYear;
 import com.example.backend_as_frontend.entity.PaymentType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,5 +39,56 @@ public class PaymentTypeService {
 
         List<PaymentType> block = entity.block();
         return block;
+    }
+
+    public void save(PaymentTypeCreateDTO paymentTypeCreateDTO) {
+
+        Mono<PaymentType> mono = webClient.post()
+                .uri(baseURI)
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .header(AUTHORIZATION, getToken())
+                .body(Mono.just(paymentTypeCreateDTO), PaymentTypeCreateDTO.class)
+                .retrieve()
+                .bodyToMono(PaymentType.class);
+
+        System.out.println("mono = " + mono.block());
+    }
+
+    public PaymentType get(Integer id) {
+        Mono<PaymentType> entity = webClient.get()
+                .uri(baseURI + "/" + id)
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .header(AUTHORIZATION, getToken())
+                .retrieve()
+                .bodyToMono(PaymentType.class);
+
+        PaymentType block = entity.block();
+        return block;
+    }
+
+    public void update(PaymentType dto) {
+        Mono<PaymentType> mono = webClient.put()
+                .uri(baseURI)
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .header(AUTHORIZATION, getToken())
+                .body(Mono.just(dto), PaymentTypeCreateDTO.class)
+                .retrieve()
+                .bodyToMono(PaymentType.class);
+
+        System.out.println("mono = " + mono.block());
+    }
+
+    public void delete(Integer id) {
+
+        if (id != null) {
+
+            Mono<Void> mono = webClient.delete()
+                    .uri(baseURI + "/" + id)
+                    .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                    .header(AUTHORIZATION, getToken())
+                    .retrieve()
+                    .bodyToMono(Void.class);
+            System.out.println("mono = " + mono.block());
+        }
     }
 }
