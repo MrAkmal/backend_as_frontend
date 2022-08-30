@@ -1,14 +1,15 @@
 package com.example.backend_as_frontend.service;
 
-import com.example.backend_as_frontend.dto.PaymentBaseDTO;
-import com.example.backend_as_frontend.dto.PaymentConfigCreateDTO;
-import com.example.backend_as_frontend.dto.TypeCreateDTO;
+import com.example.backend_as_frontend.dto.*;
+import com.example.backend_as_frontend.entity.PaymentType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
+
+import java.util.List;
 
 import static com.example.backend_as_frontend.utils.Utils.getToken;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
@@ -49,5 +50,19 @@ public class PaymentConfigurationService {
             paymentBaseService.saveAll(paymentConfig.getTypes());
         }
 
+    }
+
+
+    public List<PaymentConfigurationDTO> getAll() {
+        Mono<List<PaymentConfigurationDTO>> entity = webClient.get()
+                .uri(baseURI)
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .header(AUTHORIZATION, getToken())
+                .retrieve()
+                .bodyToFlux(PaymentConfigurationDTO.class)
+                .collectList();
+
+        List<PaymentConfigurationDTO> block = entity.block();
+        return block;
     }
 }

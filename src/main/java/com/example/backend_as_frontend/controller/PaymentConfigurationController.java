@@ -2,6 +2,8 @@ package com.example.backend_as_frontend.controller;
 
 import com.example.backend_as_frontend.entity.ProcurementMethod;
 import com.example.backend_as_frontend.entity.ProcurementNature;
+import com.example.backend_as_frontend.service.PaymentConfigurationService;
+import com.example.backend_as_frontend.service.PaymentTypeService;
 import com.example.backend_as_frontend.service.ProcurementMethodService;
 import com.example.backend_as_frontend.service.ProcurementNatureService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,17 +20,23 @@ public class PaymentConfigurationController {
 
     private final ProcurementNatureService procurementNatureService;
     private final ProcurementMethodService procurementMethodService;
+    private final PaymentConfigurationService paymentConfigurationService;
+    private final PaymentTypeService paymentTypeService;
 
 
     @Autowired
-    public PaymentConfigurationController(ProcurementNatureService procurementNatureService, ProcurementMethodService procurementMethodService) {
+    public PaymentConfigurationController(ProcurementNatureService procurementNatureService, ProcurementMethodService procurementMethodService, PaymentConfigurationService paymentConfigurationService, PaymentTypeService paymentTypeService) {
         this.procurementNatureService = procurementNatureService;
         this.procurementMethodService = procurementMethodService;
+        this.paymentConfigurationService = paymentConfigurationService;
+        this.paymentTypeService = paymentTypeService;
     }
 
     @GetMapping
-    public String getList() {
+    public String getList(Model model) {
 
+        model.addAttribute("paymentConfigurations", paymentConfigurationService.getAll());
+        model.addAttribute("paymentTypes", paymentTypeService.getAll());
         return "paymentconfig/payment-config";
     }
 
