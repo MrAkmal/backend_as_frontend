@@ -14,14 +14,14 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/payment-config")
-public class PaymentConfigController {
+public class PaymentConfigurationController {
 
     private final ProcurementNatureService procurementNatureService;
     private final ProcurementMethodService procurementMethodService;
 
 
     @Autowired
-    public PaymentConfigController(ProcurementNatureService procurementNatureService, ProcurementMethodService procurementMethodService) {
+    public PaymentConfigurationController(ProcurementNatureService procurementNatureService, ProcurementMethodService procurementMethodService) {
         this.procurementNatureService = procurementNatureService;
         this.procurementMethodService = procurementMethodService;
     }
