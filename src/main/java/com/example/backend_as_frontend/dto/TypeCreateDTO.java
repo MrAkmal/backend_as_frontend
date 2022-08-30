@@ -11,7 +11,7 @@ import lombok.*;
 public class TypeCreateDTO {
 
 
-    private String type;
+    private int paymentTypeId;
 
     private boolean active;
 
